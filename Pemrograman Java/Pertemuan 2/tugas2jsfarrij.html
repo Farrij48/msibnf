@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabel Siswa</title>
+    <link rel="stylesheet" type="text/css" href="./css/style1.css">
+</head>
+<body>
+    <h1 class="judul-style">
+        Tabel Siswa
+    </h1>
+    <table class="table-pegawai">
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Nama</th>
+                <th>Nilai</th>
+                <th>Keterangan</th>
+                <th>Grade</th>
+                <th>Predikat</th>
+            </tr>
+        </thead>
+        ,<tbody>
+            <script>
+                // Diketahui beberapa data siswa
+                let s1 = {"nama": "Farrij", nilai:85};
+                let s2 = {"nama": "Eka", nilai:95};
+                let s3 = {"nama": "Rima", nilai:75};
+                let s4 = {"nama": "Elly", nilai:95};
+                let s5 = {"nama": "Yuihan", nilai:90};
+                let s6 = {"nama": "Romi", nilai:60};
+                let s7 = {"nama": "Novita", nilai:76};
+                let s8 = {"nama": "Mayuyu", nilai:90};
+                let s9 = {"nama": "Yukirin", nilai:50};
+                let s10 = {"nama": "Sakuratan", nilai:80};
+
+                let siswa = [s1, s2, s3, s4, s5, s6, s7, s8, s9, s10]; //data siswa diubah menjadi array berobjek dengan nama siswa
+
+                var no = 1;
+                for(let s of siswa){ //membuat variabel untuk iterasi data siswa dalam variabel s
+                    //TERNARY
+                    //Membuat variable
+                    let ket = (s.nilai >= 60) ? "lulus" : "gagal";
+                    let grade = ""; //variable grade dibuat nilai kosong untuk nanti didefinisikan nilainya di switch case
+                    let predikat = ""; //variable predikat dibuat nilai kosong untuk nanti didefinisikan nilainya di switch case
+                    // Membuat kondisi IF
+                    if(s.nilai > 85 && s.nilai <= 100) grade ="A";
+                    else if(s.nilai >= 75 && s.nilai <= 85) grade = "B";
+                    else if(s.nilai >= 60 && s.nilai <=75) grade = "C";
+                    else if (s.nilai > 30 && s.nilai <60) grade = "D";
+                    else if (s.nilai >= 0 && s.nilai <= 30) grade = "E";
+                    else grade = "";
+                    switch(grade){
+                        case "A" : predikat = "Sempurna"; break;
+                        case "B" : predikat = "Baik"; break;
+                        case "C" : predikat = "Cukup"; break;
+                        case "D" : predikat = "Kurang"; break;
+                        case "E" : predikat = "Buruk"; break;
+                        default : predikat = ""; break;
+                    }
+                    // menampilkan hasil data siswa dalam tabel
+                    document.write("<tr>");
+                        document.write("<td>" + no++ + "</td>");
+                        document.write("<td>" + s.nama + "</td>");
+                        document.write("<td>" + s.nilai + "</td>");
+                        document.write("<td>" + ket + "</td>");
+                        document.write("<td>" + grade + "</td>");
+                        document.write("<td>" + predikat + "</td>");
+                        document.write("</tr>");
+                }
+            </script>
+        </tbody>
+    </table>
+</body>
+</html>
