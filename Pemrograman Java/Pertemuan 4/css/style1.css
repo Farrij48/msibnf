@@ -1,0 +1,62 @@
+.table-pegawai thead {
+    background-color: #FFDB58;
+    text-align: center;
+}
+.table-pegawai tbody {
+    background-color: #EEE8AA;
+    text-align: left;
+}
+.table-pegawai tfoot {
+    background-color: #FFFF00;
+    text-align: center;
+}
+.table-pegawai{
+    border: 1px solid black;
+    border-collapse: collapse;
+    width: 40%;
+    margin: 0 auto;
+}
+.table-pegawai th {
+    padding: 8px;
+    border: 1px solid #000;
+}
+.table-pegawai td{
+    padding: 8px;
+    border: 1px solid #000;
+}
+.judul-style {
+    text-align: center; 
+    margin-top: 50px; 
+}
+/* ---------------------------- */
+.form-pegawai {
+    position: absolute;
+        top: 26%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 330px; /* Lebar form */
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f7f199;
+        max-width: 500px;
+    
+}
+.form-pegawai input {
+    margin-left: 50px;
+}
+.form-pegawai select {
+    margin-left: 98px;
+}
+.label-gaji {
+    margin-right: 25px;
+}
+.label-status {
+    margin-right: 9px;
+}
+.button-print {
+    margin-left: 285px;
+}
+.gaji-priview{
+    margin-left: 152px;
+}
