@@ -1,0 +1,17 @@
+body{
+    text-align: center;
+    margin: auto;
+    background-color: rgb(234, 230, 103);
+}
+#div1, #div2, #div3{
+    display: inline-block;
+    margin: auto;
+    width: 50%;
+    color: aqua;
+    border: 3px solid #ddd;
+    padding: 10px;
+    text-align: center;
+    background: rgb(89, 94, 83);
+    height: 400px;
+    cursor: pointer;
+}
