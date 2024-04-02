@@ -1,0 +1,29 @@
+.bread{
+    margin-left: 10px;
+    margin-top: 10px;
+}
+.form{
+    margin-left: 20px;
+    
+}
+.colornav{
+    background-color: rgb(250, 226, 195);
+}
+
+.judul{
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+.alignfooter{
+    margin-top: 40px;
+    background-color: rgb(250, 226, 195);
+}
+
+.margintab{
+    margin-left: 20px;
+}
+
+.buttonkem{
+    margin-left: 20px;
+}
