@@ -1,19 +1,6 @@
-Microsoft Windows [Version 10.0.22000.2538]
-(c) Microsoft Corporation. All rights reserved.
-
-C:\xampp\mysql\bin>mysql --user=root mysql
-Welcome to the MariaDB monitor.  Commands end with ; or \g.
-Your MariaDB connection id is 8
-Server version: 10.4.32-MariaDB mariadb.org binary distribution
-
-Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
-
-Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
-
-MariaDB [mysql]> SELECT SUM(harga_beli * stok) as total from produk;
-ERROR 1146 (42S02): Table 'mysql.produk' doesn't exist
 MariaDB [mysql]> use dbpos_sib6;
 Database changed
+//Soal 3.1 1.Tampilkan produk yang asset nya diatas 20jt//
 MariaDB [dbpos_sib6]> SELECT SUM(harga_beli * stok) as total from produk;
 +-----------+
 | total     |
@@ -36,6 +23,7 @@ MariaDB [dbpos_sib6]> SELECT * FROM produk WHERE harga_beli * stok > 20000000;
 +----+-------+------------------+------------+------------+------+----------+------------------------+-----------+-----------------+
 7 rows in set (0.002 sec)
 
+//2.	Tampilkan data produk beserta selisih stok dengan minimal stok
 MariaDB [dbpos_sib6]> SELECT SUM(stok - min_stok) as selisih from produk;
 +---------+
 | selisih |
@@ -44,6 +32,7 @@ MariaDB [dbpos_sib6]> SELECT SUM(stok - min_stok) as selisih from produk;
 +---------+
 1 row in set (0.001 sec)
 
+//3.	Tampilkan total asset produk secara keseluruhan//
 MariaDB [dbpos_sib6]> SELECT sum(stok) as total_asset from produk;
 +-------------+
 | total_asset |
@@ -52,9 +41,7 @@ MariaDB [dbpos_sib6]> SELECT sum(stok) as total_asset from produk;
 +-------------+
 1 row in set (0.001 sec)
 
-MariaDB [dbpos_sib6]> SELECT * FROM pelanggan WHERE YEAR(tgl_lahir) BETWEEN 1999 AND 2004;
-Empty set (0.003 sec)
-
+//4.	Tampilkan data pelanggan yang lahirnya antara tahun 1980 sampai 1990
 MariaDB [dbpos_sib6]> SELECT * FROM pelanggan WHERE YEAR(tgl_lahir) BETWEEN 1980 AND 1990;
 +----+------+---------------+----+-----------+------------+----------------------+----------+
 | id | kode | nama          | jk | tmp_lahir | tgl_lahir  | email                | kartu_id |
@@ -69,25 +56,15 @@ MariaDB [dbpos_sib6]> SELECT * FROM pelanggan WHERE YEAR(tgl_lahir) BETWEEN 1980
 +----+------+---------------+----+-----------+------------+----------------------+----------+
 7 rows in set (0.001 sec)
 
+//5.	Tampilkan data pelanggan yang lahirnya tahun 1998
 MariaDB [dbpos_sib6]> SELECT * FROM pelanggan WHERE YEAR(tgl_lahir)=1998;
 Empty set (0.001 sec)
 
-MariaDB [dbpos_sib6]> SELECT * FROM pelanggan WHERE MONTH(tgl_lahir)=08;
-ERROR 2006 (HY000): MySQL server has gone away
-No connection. Trying to reconnect...
-ERROR 2002 (HY000): Can't connect to MySQL server on 'localhost' (10061)
-ERROR: Can't connect to the server
-
-unknown [dbpos_sib6]> SELECT * FROM pelanggan WHERE MONTH(tgl_lahir)=08;
-No connection. Trying to reconnect...
-Connection id:    8
-Current database: dbpos_sib6
-
-Empty set (0.013 sec)
-
+//6.	Tampilkan data pelanggan yang berulang tahun bulan agustus
 MariaDB [dbpos_sib6]> SELECT * FROM pelanggan WHERE MONTH(tgl_lahir)=08;
 Empty set (0.001 sec)
 
+//7.	Tampilkan data pelanggan : nama, tmp_lahir, tgl_lahir dan umur (selisih tahun sekarang dikurang tahun kelahiran)
 MariaDB [dbpos_sib6]> SELECT nama, tmp_lahir, tgl_lahir, (YEAR(NOW())-YEAR(tgl_lahir)) AS umur FROM pelanggan;
 +--------------------+------------+------------+------+
 | nama               | tmp_lahir  | tgl_lahir  | umur |
@@ -107,6 +84,7 @@ MariaDB [dbpos_sib6]> SELECT nama, tmp_lahir, tgl_lahir, (YEAR(NOW())-YEAR(tgl_l
 +--------------------+------------+------------+------+
 12 rows in set (0.001 sec)
 
+//SOAL3.2// 1.Berapa jumlah pelanggan yang tahun lahirnya 1998 
 MariaDB [dbpos_sib6]> SELECT COUNT(*) AS total_pelanggan
     -> FROM pelanggan
     -> WHERE YEAR(tgl_lahir) = 1998;
@@ -117,14 +95,7 @@ MariaDB [dbpos_sib6]> SELECT COUNT(*) AS total_pelanggan
 +-----------------+
 1 row in set (0.003 sec)
 
-MariaDB [dbpos_sib6]> SELECT COUNT(*) AS jml_pelanggan_perempuan FROM pelanggan WHERE jk = 'P' AND tmp_lahir = 'Jakarta';
-+-------------------------+
-| jml_pelanggan_perempuan |
-+-------------------------+
-|                       3 |
-+-------------------------+
-1 row in set (0.001 sec)
-
+//2.	Berapa jumlah pelanggan perempuan yang tempat lahirnya di Jakarta
 MariaDB [dbpos_sib6]> SELECT COUNT(*) AS jml_pelanggan_perempuan_jkt FROM pelanggan WHERE jk = 'P' AND tmp_lahir = 'Jakarta';
 +-----------------------------+
 | jml_pelanggan_perempuan_jkt |
@@ -133,6 +104,7 @@ MariaDB [dbpos_sib6]> SELECT COUNT(*) AS jml_pelanggan_perempuan_jkt FROM pelang
 +-----------------------------+
 1 row in set (0.001 sec)
 
+//3.	Berapa jumlah total stok semua produk yang harga jualnya dibawah 10rb
 MariaDB [dbpos_sib6]> SELECT SUM(stok) AS total_stok_harga_dibawah_10000 FROM produk WHERE harga_jual < 10000;
 +--------------------------------+
 | total_stok_harga_dibawah_10000 |
@@ -141,7 +113,8 @@ MariaDB [dbpos_sib6]> SELECT SUM(stok) AS total_stok_harga_dibawah_10000 FROM pr
 +--------------------------------+
 1 row in set (0.002 sec)
 
-MariaDB [dbpos_sib6]> SELECT COUNT(*) AS jml_produk_dg_kode_awal_k FROM produk WHERE kode LIKE 'K%';
+//4.	Ada berapa produk yang mempunyai kode awal K
+[dbpos_sib6]> SELECT COUNT(*) AS jml_produk_dg_kode_awal_k FROM produk WHERE kode LIKE 'K%';
 +---------------------------+
 | jml_produk_dg_kode_awal_k |
 +---------------------------+
@@ -149,7 +122,8 @@ MariaDB [dbpos_sib6]> SELECT COUNT(*) AS jml_produk_dg_kode_awal_k FROM produk W
 +---------------------------+
 1 row in set (0.003 sec)
 
-MariaDB [dbpos_sib6]> SELECT AVG(harga_jual) AS harga_rata_rata_produk_diatas_1jt FROM produk WHERE harga_jual > 1000000;
+//5.	Berapa harga jual rata-rata produk yang diatas 1jt
+[dbpos_sib6]> SELECT AVG(harga_jual) AS harga_rata_rata_produk_diatas_1jt FROM produk WHERE harga_jual > 1000000;
 +-----------------------------------+
 | harga_rata_rata_produk_diatas_1jt |
 +-----------------------------------+
@@ -157,7 +131,8 @@ MariaDB [dbpos_sib6]> SELECT AVG(harga_jual) AS harga_rata_rata_produk_diatas_1j
 +-----------------------------------+
 1 row in set (0.001 sec)
 
-MariaDB [dbpos_sib6]> SELECT MAX(stok) AS jml_stok_terbesar FROM produk;
+//6.	Tampilkan jumlah stok yang paling besar
+[dbpos_sib6]> SELECT MAX(stok) AS jml_stok_terbesar FROM produk;
 +-------------------+
 | jml_stok_terbesar |
 +-------------------+
@@ -165,6 +140,7 @@ MariaDB [dbpos_sib6]> SELECT MAX(stok) AS jml_stok_terbesar FROM produk;
 +-------------------+
 1 row in set (0.002 sec)
 
+//7.	Ada berapa produk yang stoknya kurang dari minimal stok
 MariaDB [dbpos_sib6]> SELECT COUNT(*) AS jml_produk_krg_dari_min_stok FROM produk WHERE stok < min_stok;
 +------------------------------+
 | jml_produk_krg_dari_min_stok |
@@ -173,6 +149,7 @@ MariaDB [dbpos_sib6]> SELECT COUNT(*) AS jml_produk_krg_dari_min_stok FROM produ
 +------------------------------+
 1 row in set (0.001 sec)
 
+//8.	Berapa total asset dari keseluruhan produk
 MariaDB [dbpos_sib6]> SELECT SUM(stok * harga_beli) AS total_asset FROM produk;
 +-------------+
 | total_asset |
@@ -181,6 +158,7 @@ MariaDB [dbpos_sib6]> SELECT SUM(stok * harga_beli) AS total_asset FROM produk;
 +-------------+
 1 row in set (0.001 sec)
 
+//Soal 3.3  1.	Tampilkan data produk : id, nama, stok dan informasi jika stok telah sampai batas minimal atau kurang dari minimum stok dengan informasi ‘segera belanja’ jika tidak ‘stok aman’.
 MariaDB [dbpos_sib6]> SELECT id, nama, stok, CASE WHEN stok <= min_stok THEN 'segera belanja' ELSE 'stok aman' END AS status_stok FROM produk;
 +----+-------------------+------+----------------+
 | id | nama              | stok | status_stok    |
@@ -210,8 +188,7 @@ MariaDB [dbpos_sib6]> SELECT id, nama, stok, CASE WHEN stok <= min_stok THEN 'se
 +----+-------------------+------+----------------+
 22 rows in set (0.001 sec)
 
-MariaDB [dbpos_sib6]> SELECT id, nama, TIMESTAMPDIFF(YEAR, tgl_lahir, CURDATE()) AS umur, CASE WHEN TIMESTAMPDIFF(YEAR, tgl_lahir, CURDATE()) < 17 THEN 'muda' WHEN TIMESTAMPDIFF(YEAR, tgl_lahir, CURDATE()) BETWEEN 17 AND 55 ELSE 'tua' END AS kategori_umur FROM pelanggan;
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'ELSE 'tua' END AS kategori_umur FROM pelanggan' at line 1
+//2.	Tampilkan data pelanggan: id, nama, umur dan kategori umur : jika umur < 17 → ‘muda’ , 17-55 → ‘Dewasa’, selainnya ‘Tua’
 MariaDB [dbpos_sib6]> SELECT id, nama, TIMESTAMPDIFF(YEAR, tgl_lahir, CURDATE()) AS umur, CASE WHEN TIMESTAMPDIFF(YEAR, tgl_lahir, CURDATE()) < 17 THEN 'muda' WHEN TIMESTAMPDIFF(YEAR, tgl_lahir, CURDATE()) BETWEEN 17 AND 55 THEN 'dewasa' ELSE 'tua' END AS kategori_umur FROM pelanggan;
 +----+--------------------+------+---------------+
 | id | nama               | umur | kategori_umur |
@@ -231,6 +208,7 @@ MariaDB [dbpos_sib6]> SELECT id, nama, TIMESTAMPDIFF(YEAR, tgl_lahir, CURDATE())
 +----+--------------------+------+---------------+
 12 rows in set (0.001 sec)
 
+//3.	Tampilkan data produk: id, kode, nama, dan bonus untuk kode ‘TV01’ →’DVD Player’ , ‘K001’ → ‘Rice Cooker’ selain dari diatas ‘Tidak Ada’
 MariaDB [dbpos_sib6]> SELECT id, kode, nama, CASE WHEN kode = 'TV01' THEN 'DVD Player' WHEN kode = 'K001' THEN 'Rice Cooker' ELSE 'Tidak Ada' END AS bonus FROM produk;
 +----+--------+-------------------+-------------+
 | id | kode   | nama              | bonus       |
@@ -260,6 +238,7 @@ MariaDB [dbpos_sib6]> SELECT id, kode, nama, CASE WHEN kode = 'TV01' THEN 'DVD P
 +----+--------+-------------------+-------------+
 22 rows in set (0.001 sec)
 
+//Soal 3.4 1.	Tampilkan data statistik jumlah tempat lahir pelanggan
 MariaDB [dbpos_sib6]> SELECT tmp_lahir, COUNT(*) AS jumlah_pelanggan FROM pelanggan GROUP BY tmp_lahir;
 +------------+------------------+
 | tmp_lahir  | jumlah_pelanggan |
@@ -275,6 +254,7 @@ MariaDB [dbpos_sib6]> SELECT tmp_lahir, COUNT(*) AS jumlah_pelanggan FROM pelang
 +------------+------------------+
 8 rows in set (0.001 sec)
 
+//2.	Tampilkan jumlah statistik produk berdasarkan jenis produk
 MariaDB [dbpos_sib6]> SELECT jenis_produk_id, COUNT(*) AS jumlah_produk FROM produk GROUP BY jenis_produk_id;
 +-----------------+---------------+
 | jenis_produk_id | jumlah_produk |
@@ -286,6 +266,7 @@ MariaDB [dbpos_sib6]> SELECT jenis_produk_id, COUNT(*) AS jumlah_produk FROM pro
 +-----------------+---------------+
 4 rows in set (0.001 sec)
 
+//3.	Tampilkan data pelanggan yang usianya dibawah rata usia pelanggan
 MariaDB [dbpos_sib6]> SELECT * FROM pelanggan WHERE TIMESTAMPDIFF(YEAR, tgl_lahir, CURDATE()) < (SELECT AVG(TIMESTAMPDIFF(YEAR, tgl_lahir, CURDATE())) AS rata_usia FROM pelanggan);
 +----+-------+--------------------+----+-----------+------------+------------------+----------+
 | id | kode  | nama               | jk | tmp_lahir | tgl_lahir  | email            | kartu_id |
@@ -297,6 +278,7 @@ MariaDB [dbpos_sib6]> SELECT * FROM pelanggan WHERE TIMESTAMPDIFF(YEAR, tgl_lahi
 +----+-------+--------------------+----+-----------+------------+------------------+----------+
 4 rows in set (0.001 sec)
 
+//4.	Tampilkan data produk yang harganya diatas rata-rata harga produk
 MariaDB [dbpos_sib6]> SELECT * FROM produk WHERE harga_jual > (SELECT AVG(harga_jual) FROM produk);
 +----+--------+-------------------+------------+------------+------+----------+------+-----------+-----------------+
 | id | kode   | nama              | harga_beli | harga_jual | stok | min_stok | foto | deskripsi | jenis_produk_id |
@@ -312,6 +294,7 @@ MariaDB [dbpos_sib6]> SELECT * FROM produk WHERE harga_jual > (SELECT AVG(harga_
 +----+--------+-------------------+------------+------------+------+----------+------+-----------+-----------------+
 8 rows in set (0.001 sec)
 
+//5.	Tampilkan data pelanggan yang memiliki kartu dimana iuran tahunan kartu diatas 90rb
 MariaDB [dbpos_sib6]> SELECT p.* FROM pelanggan p JOIN kartu k ON p.kartu_id = k.id WHERE k.diskon > 0.03 AND k.iuran > 90000;
 +----+-------+--------------------+----+------------+------------+-------------------+----------+
 | id | kode  | nama               | jk | tmp_lahir  | tgl_lahir  | email             | kartu_id |
@@ -327,6 +310,16 @@ MariaDB [dbpos_sib6]> SELECT p.* FROM pelanggan p JOIN kartu k ON p.kartu_id = k
 +----+-------+--------------------+----+------------+------------+-------------------+----------+
 8 rows in set (0.001 sec)
 
+//6.	Tampilkan statistik data produk dimana harga produknya dibawah rata-rata harga produk secara keseluruhan
+MariaDB [dbpos_sib6]> SELECT COUNT(*) AS jumlah_produk, AVG(harga_jual) AS rata_rata_harga_jual, MIN(harga_jual) AS harga_terendah_jual, MAX(harga_jual) AS harga_tertinggi_jual FROM produk WHERE harga_jual < (SELECT AVG(harga_jual) FROM produk);
++---------------+----------------------+---------------------+----------------------+
+| jumlah_produk | rata_rata_harga_jual | harga_terendah_jual | harga_tertinggi_jual |
++---------------+----------------------+---------------------+----------------------+
+|            14 |    4819785.714285715 |                2500 |             16000000 |
++---------------+----------------------+---------------------+----------------------+
+1 row in set (0.001 sec)
+
+//7.	Tampilkan data pelanggan yang memiliki kartu dimana diskon kartu yang diberikan diatas 3%
 MariaDB [dbpos_sib6]> SELECT pelanggan.* FROM pelanggan JOIN kartu ON pelanggan.kartu_id = kartu.id WHERE kartu.diskon > 0.03;
 +----+-------+--------------------+----+------------+------------+-------------------+----------+
 | id | kode  | nama               | jk | tmp_lahir  | tgl_lahir  | email             | kartu_id |
@@ -341,13 +334,3 @@ MariaDB [dbpos_sib6]> SELECT pelanggan.* FROM pelanggan JOIN kartu ON pelanggan.
 | 11 | K0010 | Andi Wijaya        | L  | Tangerang  | 2023-11-07 | andi@gmail.com    |        2 |
 +----+-------+--------------------+----+------------+------------+-------------------+----------+
 8 rows in set (0.002 sec)
-
-MariaDB [dbpos_sib6]> SELECT COUNT(*) AS jumlah_produk, AVG(harga_jual) AS rata_rata_harga_jual, MIN(harga_jual) AS harga_terendah_jual, MAX(harga_jual) AS harga_tertinggi_jual FROM produk WHERE harga_jual < (SELECT AVG(harga_jual) FROM produk);
-+---------------+----------------------+---------------------+----------------------+
-| jumlah_produk | rata_rata_harga_jual | harga_terendah_jual | harga_tertinggi_jual |
-+---------------+----------------------+---------------------+----------------------+
-|            14 |    4819785.714285715 |                2500 |             16000000 |
-+---------------+----------------------+---------------------+----------------------+
-1 row in set (0.001 sec)
-
-MariaDB [dbpos_sib6]>
